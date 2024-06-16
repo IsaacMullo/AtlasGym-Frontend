@@ -18,6 +18,7 @@ import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import LastPageIcon from '@mui/icons-material/LastPage';
 import DeleteForeverSharpIcon from '@mui/icons-material/DeleteForeverSharp';
 import CreateIcon from '@mui/icons-material/Create';
+import EditModal from '../EditModal/EditModal';
 
 function TablePaginationActions(props) {
   const theme = useTheme();
@@ -61,6 +62,16 @@ export default function StockManageTable() {
   const [products, setProducts] = useState([]);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
+
+  const [editModalOpen, setEditModalOpen] = useState(false);
+
+  const handleOpenEditModal = () => {
+    setModalOpen(true);
+  };
+
+  const handleCloseEditModal = () => {
+    setModalOpen(false);
+  };
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -111,7 +122,7 @@ export default function StockManageTable() {
               <TableCell align="right">{row.stock}</TableCell>
               <TableCell align="right">{(row.precio * row.stock)}</TableCell>
               <TableCell align="right">
-                <IconButton aria-label="edit" onClick={() => logTest(index)}>
+                <IconButton aria-label="edit" onClick={handleOpenEditModal}>
                   <CreateIcon />
                 </IconButton>
                 <IconButton aria-label="delete">
@@ -145,6 +156,8 @@ export default function StockManageTable() {
           </TableRow>
         </TableFooter>
       </Table>
+      <EditModal open={editModalOpen} onClose={handleCloseEditModal}/>
     </TableContainer>
+
   );
 }
