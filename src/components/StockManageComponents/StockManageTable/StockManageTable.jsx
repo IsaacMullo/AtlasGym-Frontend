@@ -19,6 +19,8 @@ import LastPageIcon from '@mui/icons-material/LastPage';
 import DeleteForeverSharpIcon from '@mui/icons-material/DeleteForeverSharp';
 import CreateIcon from '@mui/icons-material/Create';
 import EditModal from '../EditModal/EditModal';
+import DeleteModal from '../DeleteModal/DeleteModal';
+import StockManageHeader from '../StockManageHeader/StockManageHeader';
 
 function TablePaginationActions(props) {
   const theme = useTheme();
@@ -64,13 +66,23 @@ export default function StockManageTable() {
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
   const [editModalOpen, setEditModalOpen] = useState(false);
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+
 
   const handleOpenEditModal = () => {
-    setModalOpen(true);
+    setEditModalOpen(true);
   };
 
   const handleCloseEditModal = () => {
-    setModalOpen(false);
+    setEditModalOpen(false);
+  };
+
+  const handleOpenDeleteModal = () => {
+    setDeleteModalOpen(true);
+  };
+
+  const handleCloseDeleteModal = () => {
+    setDeleteModalOpen(false);
   };
 
   useEffect(() => {
@@ -85,6 +97,15 @@ export default function StockManageTable() {
 
     fetchProducts();
   }, []);
+
+  const onAddProduct = async (newProduct) => {
+    try {
+      const response = await axios.post('http://localhost:8000/api/productos/', newProduct);
+      setProducts(prevProducts => [...prevProducts, response.data]);
+    } catch (error) {
+      console.error('Error adding product:', error);
+    }
+  };
   
 
   const handleChangePage = (event, newPage) => {
@@ -103,6 +124,8 @@ export default function StockManageTable() {
   const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - products.length) : 0;
 
   return (
+    <>
+    <StockManageHeader onAddProduct={onAddProduct} />
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
         <TableHead>
@@ -125,7 +148,7 @@ export default function StockManageTable() {
                 <IconButton aria-label="edit" onClick={handleOpenEditModal}>
                   <CreateIcon />
                 </IconButton>
-                <IconButton aria-label="delete">
+                <IconButton aria-label="delete" onClick={handleOpenDeleteModal}>
                   <DeleteForeverSharpIcon />
                 </IconButton>
               </TableCell>
@@ -157,7 +180,8 @@ export default function StockManageTable() {
         </TableFooter>
       </Table>
       <EditModal open={editModalOpen} onClose={handleCloseEditModal}/>
+      <DeleteModal open={deleteModalOpen} onClose={handleCloseDeleteModal}/>
     </TableContainer>
-
+    </>
   );
 }

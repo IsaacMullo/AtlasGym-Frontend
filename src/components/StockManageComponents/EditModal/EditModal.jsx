@@ -22,7 +22,7 @@ const style = {
   alignItems: 'center',
 };
 
-export default function EditModal({ open, onClose}) {
+export default function EditModal({ open, onClose, onEditProduct}) {
   const [product, setProduct] = React.useState('');
   const [price, setPrice] = React.useState('');
   const [stock, setStock] = React.useState('');

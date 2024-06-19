@@ -1,4 +1,4 @@
-.header{
+.header-sales-history{
   display: flex;
 }
 
@@ -17,20 +17,8 @@
 
 .breadcrumb .ventas{
   margin-left: 10px;
-  margin-right: 10px;
 }
 
-.header button{
-  color: black;
+.header-sales-history button{
+ color: black;
 }
-
-.header .add-button{
-  height: 50px;
-  width: 180px;
-  border-radius: 30px;
-  color: black;
-  font-size: 13px;
-  font-weight: bold;
-  background-color: #F0EEEE;
-}
-

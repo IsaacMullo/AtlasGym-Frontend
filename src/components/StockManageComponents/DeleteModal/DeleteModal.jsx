@@ -3,7 +3,6 @@ import Backdrop from '@mui/material/Backdrop';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
-import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import CustomButton from '../../../common/CustomButton/CustomButton';
 
@@ -22,26 +21,27 @@ const style = {
   alignItems: 'center',
 };
 
-export default function AddModal({ open, onClose, onAddProduct }) {
-  const [nombre_producto, setNombreProducto] = React.useState('');
-  const [precio, setPrecio] = React.useState('');
+export default function DeleteModal({ open, onClose}) {
+  const [product, setProduct] = React.useState('');
+  const [price, setPrice] = React.useState('');
   const [stock, setStock] = React.useState('');
 
   const handleSave = () => {
-    onAddProduct({
-      nombre_producto: nombre_producto,
-      precio: parseFloat(precio),
+    onEditProduct({
+      name: product,
+      price: parseFloat(price),
       stock: parseInt(stock),
+      total: parseFloat(price) * parseInt(stock)
     });
-    setNombreProducto('');
-    setPrecio('');
+    setProduct('');
+    setPrice('');
     setStock('');
     onClose();
   };
 
   const handleCancel = () => {
-    setNombreProducto('');
-    setPrecio('');
+    setProduct('');
+    setPrice('');
     setStock('');
     onClose();
   }
@@ -62,35 +62,11 @@ export default function AddModal({ open, onClose, onAddProduct }) {
         <Fade in={open}>
           <Box sx={style}>
             <Typography id="transition-modal-title" variant="h6" component="h2" sx={{ mb: 2 }}>
-              Agregar Producto
+              ¿Seguro desea eliminar este producto?
             </Typography>
-            <TextField
-              id="product-name"
-              label="Producto"
-              variant="standard"
-              value={nombre_producto}
-              onChange={(e) => setNombreProducto(e.target.value)}
-              sx={{ mb: 2, width: '100%' }}
-            />
-            <TextField
-              id="product-price"
-              label="Precio"
-              variant="standard"
-              value={precio}
-              onChange={(e) => setPrecio(e.target.value)}
-              sx={{ mb: 2, width: '100%' }}
-            />
-            <TextField
-              id="product-stock"
-              label="Stock"
-              variant="standard"
-              value={stock}
-              onChange={(e) => setStock(e.target.value)}
-              sx={{ mb: 2, width: '100%' }}
-            />
             <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
               <CustomButton onClick={handleCancel}>Cancelar</CustomButton>
-              <CustomButton onClick={handleSave}>Guardar</CustomButton>
+              <CustomButton onClick={handleSave}>Confirmar</CustomButton>
             </Box>
           </Box>
         </Fade>

@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import CustomTypography from "../../../common/CustomTypography/CustomTypography";
-import AddModal from "../AddModal/AddModal";
 import CustomButton from "../../../common/CustomButton/CustomButton";
 import { Button } from "@mui/material";
 import UseNavigation from "../../../hooks/UseNavigate/UseNavigate";
+import AddModal from "../../StockManageComponents/AddModal/AddModal";
 
 
-const StockManageHeader = ({ onAddProduct }) => {
+const SalesHeader = ({ onAddProduct }) => {
   const goTo = UseNavigation();
 
   const [modalOpen, setModalOpen] = useState(false);
@@ -44,11 +44,11 @@ const StockManageHeader = ({ onAddProduct }) => {
             <CustomTypography variant="subtitle1">Sistema de control de stock</CustomTypography>
           </div>
         </div>
-          <CustomButton onClick={handleOpenModal} className="add-button">Agregar Producto</CustomButton>
+          <CustomButton onClick={handleOpenModal} className="add-button">Realizar venta</CustomButton>
       </div>
       <AddModal open={modalOpen} onClose={handleCloseModal} onAddProduct={onAddProduct}/>
     </>
   )
 }
 
-export default StockManageHeader;
+export default SalesHeader;
