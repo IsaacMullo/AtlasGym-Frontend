@@ -27,12 +27,12 @@ export default function EditModal({ open, onClose, onEditProduct}) {
   const [price, setPrice] = React.useState('');
   const [stock, setStock] = React.useState('');
 
-  const handleSave = () => {
+  const handleEdit = () => {
     onEditProduct({
-      name: product,
-      price: parseFloat(price),
+      nombre_producto: product,
+      precio: parseFloat(price),
       stock: parseInt(stock),
-      total: parseFloat(price) * parseInt(stock)
+
     });
     setProduct('');
     setPrice('');
@@ -91,7 +91,7 @@ export default function EditModal({ open, onClose, onEditProduct}) {
             />
             <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
               <CustomButton onClick={handleCancel}>Cancelar</CustomButton>
-              <CustomButton onClick={handleSave}>Guardar</CustomButton>
+              <CustomButton onClick={handleEdit}>Guardar</CustomButton>
             </Box>
           </Box>
         </Fade>

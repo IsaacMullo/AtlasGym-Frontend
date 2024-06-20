@@ -68,6 +68,8 @@ export default function StockManageTable() {
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
 
+  const [currentProductId, setCurrentProductId] = useState(null);
+
 
   const handleOpenEditModal = () => {
     setEditModalOpen(true);
@@ -77,12 +79,16 @@ export default function StockManageTable() {
     setEditModalOpen(false);
   };
 
-  const handleOpenDeleteModal = () => {
+  const handleOpenDeleteModal = (id_producto) => {
+    setCurrentProductId(id_producto);
+    console.log(id_producto)
+
     setDeleteModalOpen(true);
   };
 
   const handleCloseDeleteModal = () => {
     setDeleteModalOpen(false);
+    setCurrentProductId(null);
   };
 
   useEffect(() => {
@@ -104,6 +110,15 @@ export default function StockManageTable() {
       setProducts(prevProducts => [...prevProducts, response.data]);
     } catch (error) {
       console.error('Error adding product:', error);
+    }
+  };
+
+  const onDeleteProduct = async (id_producto) => {
+    try {
+      await axios.delete(`http://localhost:8000/api/productos/${id_producto}/`);
+      setProducts(products.filter(product => product.id_producto !== id_producto)); // Actualizar el estado filtrando el producto eliminado
+    } catch (error) {
+      console.error('Error deleting product:', error);
     }
   };
   
@@ -148,7 +163,7 @@ export default function StockManageTable() {
                 <IconButton aria-label="edit" onClick={handleOpenEditModal}>
                   <CreateIcon />
                 </IconButton>
-                <IconButton aria-label="delete" onClick={handleOpenDeleteModal}>
+                <IconButton aria-label="delete" onClick={() => handleOpenDeleteModal(row.id_producto)}>
                   <DeleteForeverSharpIcon />
                 </IconButton>
               </TableCell>
@@ -180,7 +195,7 @@ export default function StockManageTable() {
         </TableFooter>
       </Table>
       <EditModal open={editModalOpen} onClose={handleCloseEditModal}/>
-      <DeleteModal open={deleteModalOpen} onClose={handleCloseDeleteModal}/>
+      <DeleteModal open={deleteModalOpen} onClose={handleCloseDeleteModal} onDeleteProduct={onDeleteProduct} id_producto={currentProductId}/>
     </TableContainer>
     </>
   );

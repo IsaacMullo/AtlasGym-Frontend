@@ -21,28 +21,14 @@ const style = {
   alignItems: 'center',
 };
 
-export default function DeleteModal({ open, onClose}) {
-  const [product, setProduct] = React.useState('');
-  const [price, setPrice] = React.useState('');
-  const [stock, setStock] = React.useState('');
+export default function DeleteModal({ open, onClose, onDeleteProduct, id_producto}) {
 
-  const handleSave = () => {
-    onEditProduct({
-      name: product,
-      price: parseFloat(price),
-      stock: parseInt(stock),
-      total: parseFloat(price) * parseInt(stock)
-    });
-    setProduct('');
-    setPrice('');
-    setStock('');
+  const handleConfirm = () => {
+    onDeleteProduct(id_producto);
     onClose();
   };
 
   const handleCancel = () => {
-    setProduct('');
-    setPrice('');
-    setStock('');
     onClose();
   }
 
@@ -66,7 +52,7 @@ export default function DeleteModal({ open, onClose}) {
             </Typography>
             <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
               <CustomButton onClick={handleCancel}>Cancelar</CustomButton>
-              <CustomButton onClick={handleSave}>Confirmar</CustomButton>
+              <CustomButton onClick={handleConfirm}>Confirmar</CustomButton>
             </Box>
           </Box>
         </Fade>
