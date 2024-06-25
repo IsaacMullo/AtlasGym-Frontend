@@ -3,23 +3,12 @@ import CustomTypography from "../../../common/CustomTypography/CustomTypography"
 import CustomButton from "../../../common/CustomButton/CustomButton";
 import { Button } from "@mui/material";
 import UseNavigation from "../../../hooks/UseNavigate/UseNavigate";
-import AddModal from "../../StockManageComponents/AddModal/AddModal";
+import SaleModal from "../SaleModal/SaleModal";
 
 
-const SalesHeader = ({ onAddProduct }) => {
+const SalesHeader = ({ onOpenModal }) => {
   const goTo = UseNavigation();
 
-  const [modalOpen, setModalOpen] = useState(false);
-
-  const handleOpenModal = () => {
-    setModalOpen(true);
-  };
-
-  const handleCloseModal = () => {
-    setModalOpen(false);
-  };
-
-  
 
   return (
     <>
@@ -44,9 +33,8 @@ const SalesHeader = ({ onAddProduct }) => {
             <CustomTypography variant="subtitle1">Sistema de control de stock</CustomTypography>
           </div>
         </div>
-          <CustomButton onClick={handleOpenModal} className="add-button">Realizar venta</CustomButton>
+          <CustomButton onClick={onOpenModal} className="add-button">Realizar venta</CustomButton>
       </div>
-      <AddModal open={modalOpen} onClose={handleCloseModal} onAddProduct={onAddProduct}/>
     </>
   )
 }

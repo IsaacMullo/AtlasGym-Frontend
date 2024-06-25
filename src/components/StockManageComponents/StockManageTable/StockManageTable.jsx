@@ -63,20 +63,24 @@ function TablePaginationActions(props) {
 export default function StockManageTable() {
   const [products, setProducts] = useState([]);
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [rowsPerPage, setRowsPerPage] = useState(6);
 
   const [editModalOpen, setEditModalOpen] = useState(false);
+  const [editingProduct, setEditingProduct] = useState(null);
+
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
-
   const [currentProductId, setCurrentProductId] = useState(null);
+  
 
 
-  const handleOpenEditModal = () => {
+  const handleOpenEditModal = (product) => {
+    setEditingProduct(product);
     setEditModalOpen(true);
   };
 
   const handleCloseEditModal = () => {
     setEditModalOpen(false);
+    setEditingProduct(null);
   };
 
   const handleOpenDeleteModal = (id_producto) => {
@@ -113,6 +117,19 @@ export default function StockManageTable() {
     }
   };
 
+  const onEditProduct = async (producto) => {
+    try {
+      const response = await axios.put(`http://localhost:8000/api/productos/${producto.id_producto}/`, producto);
+      setProducts(products.map(product => 
+        product.id_producto === producto.id_producto ? response.data : product
+      ));
+      handleCloseEditModal();
+    } catch (error) {
+      console.error('Error updating product:', error);
+    }
+  };
+  
+
   const onDeleteProduct = async (id_producto) => {
     try {
       await axios.delete(`http://localhost:8000/api/productos/${id_producto}/`);
@@ -132,11 +149,15 @@ export default function StockManageTable() {
     setPage(0);
   };
 
-  const logTest =(id) =>{
-    console.log(id)
+  const logTest =(pos) =>{
+    return pos + 1
   }
 
   const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - products.length) : 0;
+
+  const labelDisplayedRows = ({ from, to, count }) => {
+    return `${from}-${to} de ${count !== -1 ? count : `más de ${to}`}`;
+  };
 
   return (
     <>
@@ -145,7 +166,8 @@ export default function StockManageTable() {
       <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
         <TableHead>
           <TableRow>
-            <TableCell sx={{ fontWeight: 'bold' }}>Producto</TableCell>
+          <TableCell></TableCell>
+            <TableCell sx={{ fontWeight: 'bold' }} align="center">Producto</TableCell>
             <TableCell sx={{ fontWeight: 'bold' }} align="right">Precio</TableCell>
             <TableCell sx={{ fontWeight: 'bold' }} align="right">Stock</TableCell>
             <TableCell sx={{ fontWeight: 'bold' }} align="right">Total</TableCell>
@@ -155,12 +177,13 @@ export default function StockManageTable() {
         <TableBody>
           {products.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, index) => (
             <TableRow key={index}>
-              <TableCell component="th" scope="row">{row.nombre_producto}</TableCell>
-              <TableCell align="right">{row.precio}</TableCell>
+              <TableCell align="center">{index + 1}</TableCell>
+              <TableCell component="th" scope="row" align="center">{row.nombre_producto}</TableCell>
+              <TableCell align="right">{"$" + row.precio}</TableCell>
               <TableCell align="right">{row.stock}</TableCell>
-              <TableCell align="right">{(row.precio * row.stock)}</TableCell>
+              <TableCell align="right">{"$" + (row.precio * row.stock).toFixed(2)}</TableCell>
               <TableCell align="right">
-                <IconButton aria-label="edit" onClick={handleOpenEditModal}>
+                <IconButton aria-label="edit" onClick={() => handleOpenEditModal(row)}>
                   <CreateIcon />
                 </IconButton>
                 <IconButton aria-label="delete" onClick={() => handleOpenDeleteModal(row.id_producto)}>
@@ -178,15 +201,18 @@ export default function StockManageTable() {
         <TableFooter>
           <TableRow>
             <TablePagination
-              rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
-              colSpan={5}
+              rowsPerPageOptions={[6, 10, 25, { label: 'Todos', value: -1 }]}
+              colSpan={0}
               count={products.length}
               rowsPerPage={rowsPerPage}
               page={page}
-              SelectProps={{
-                inputProps: { 'aria-label': 'rows per page' },
-                native: true,
+              slotProps={{
+                select: {
+                  native: true,
+                },
               }}
+              labelRowsPerPage="Registros:"
+              labelDisplayedRows={labelDisplayedRows}
               onPageChange={handleChangePage}
               onRowsPerPageChange={handleChangeRowsPerPage}
               ActionsComponent={TablePaginationActions}
@@ -194,7 +220,7 @@ export default function StockManageTable() {
           </TableRow>
         </TableFooter>
       </Table>
-      <EditModal open={editModalOpen} onClose={handleCloseEditModal}/>
+      <EditModal open={editModalOpen} onClose={handleCloseEditModal} onEditProduct={onEditProduct} editingProduct={editingProduct}/>
       <DeleteModal open={deleteModalOpen} onClose={handleCloseDeleteModal} onDeleteProduct={onDeleteProduct} id_producto={currentProductId}/>
     </TableContainer>
     </>

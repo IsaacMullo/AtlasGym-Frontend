@@ -55,28 +55,15 @@ function TablePaginationActions(props) {
   );
 }
 
-const SalesHistoryTable = () => {
-  const [products, setProducts] = useState([]);
+const SalesTable = ({products}) => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(7);
-
+  
   function convertUTCDateToLocalDate(dateString) {
     const date = new Date(dateString);
     return new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString().replace('T', ' ').substring(0, 19);
   }
 
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const response = await axios.get('http://localhost:8000/api/historial-ventas/');
-        setProducts(response.data);
-      } catch (error) {
-        console.error('Error fetching products:', error);
-      }
-    };
-
-    fetchProducts();
-  }, []);
   
 
   const handleChangePage = (event, newPage) => {
@@ -92,11 +79,11 @@ const SalesHistoryTable = () => {
     console.log(id)
   }
 
+  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - products.length) : 0;
+
   const labelDisplayedRows = ({ from, to, count }) => {
     return `${from}-${to} de ${count !== -1 ? count : `más de ${to}`}`;
   };
-
-  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - products.length) : 0;
 
   return (
     <>
@@ -104,23 +91,19 @@ const SalesHistoryTable = () => {
         <Table sx={{ minWidth: 300}} aria-label="custom pagination table">
           <TableHead>
             <TableRow>
-              <TableCell sx={{ fontWeight: 'bold' }} align="center">Nro. de Venta</TableCell>
               <TableCell sx={{ fontWeight: 'bold', paddingLeft: '10%'}}>Fecha</TableCell>
               <TableCell sx={{ fontWeight: 'bold' }} align="center">Producto</TableCell>
               <TableCell sx={{ fontWeight: 'bold' }} align="center">Cantidad</TableCell>
               <TableCell sx={{ fontWeight: 'bold' }} align="center">Responsable</TableCell>
-              <TableCell sx={{ fontWeight: 'bold' }} align="center">Total</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {products.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, index) => (
               <TableRow key={index}>
-                <TableCell align="center">{row.id_venta}</TableCell>
                 <TableCell sx={{paddingLeft: '6%'}} component="th" scope="row">{convertUTCDateToLocalDate(row.fecha)}</TableCell>
-                <TableCell align="center">{(row.id_producto)}</TableCell>
+                <TableCell align="center">{row.id_producto}</TableCell>
                 <TableCell align="center">{row.cantidad}</TableCell>
                 <TableCell align="center">{row.responsable}</TableCell>
-                <TableCell align="center">{"$" + row.precio}</TableCell>
               </TableRow>
             ))}
             {emptyRows > 0 && (
@@ -132,8 +115,8 @@ const SalesHistoryTable = () => {
           <TableFooter>
             <TableRow>
               <TablePagination
-                rowsPerPageOptions={[7, 10, 25, { label: 'Todos', value: -1 }]}
-                colSpan={0}
+                rowsPerPageOptions={[7, 10, 25, { label: 'All', value: -1 }]}
+                colSpan={5}
                 count={products.length}
                 rowsPerPage={rowsPerPage}
                 page={page}
@@ -143,8 +126,8 @@ const SalesHistoryTable = () => {
                   },
                 }}
                 labelRowsPerPage="Registros:"
-                labelDisplayedRows={labelDisplayedRows}
                 onPageChange={handleChangePage}
+                labelDisplayedRows={labelDisplayedRows}
                 onRowsPerPageChange={handleChangeRowsPerPage}
                 ActionsComponent={TablePaginationActions}
               />
@@ -156,4 +139,4 @@ const SalesHistoryTable = () => {
   );
 }
 
-export default SalesHistoryTable
+export default SalesTable

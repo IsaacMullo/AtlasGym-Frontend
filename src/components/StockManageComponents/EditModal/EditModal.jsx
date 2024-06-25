@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useEffect } from 'react';
 import Backdrop from '@mui/material/Backdrop';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
@@ -22,17 +23,25 @@ const style = {
   alignItems: 'center',
 };
 
-export default function EditModal({ open, onClose, onEditProduct}) {
+export default function EditModal({ open, onClose, onEditProduct, editingProduct}) {
   const [product, setProduct] = React.useState('');
   const [price, setPrice] = React.useState('');
   const [stock, setStock] = React.useState('');
 
+  useEffect(() => {
+    if (open && editingProduct) {
+      setProduct(editingProduct.nombre_producto);
+      setPrice(editingProduct.precio)
+    }
+  }, [open, editingProduct]);
+
   const handleEdit = () => {
+    if (!editingProduct) return;
     onEditProduct({
+      id_producto: editingProduct.id_producto,
       nombre_producto: product,
       precio: parseFloat(price),
       stock: parseInt(stock),
-
     });
     setProduct('');
     setPrice('');
@@ -77,6 +86,7 @@ export default function EditModal({ open, onClose, onEditProduct}) {
               id="product-price"
               label="Precio"
               variant="standard"
+              type="number"
               value={price}
               onChange={(e) => setPrice(e.target.value)}
               sx={{ mb: 2, width: '100%' }}
@@ -85,6 +95,7 @@ export default function EditModal({ open, onClose, onEditProduct}) {
               id="product-stock"
               label="Stock"
               variant="standard"
+              type="number"
               value={stock}
               onChange={(e) => setStock(e.target.value)}
               sx={{ mb: 2, width: '100%' }}
