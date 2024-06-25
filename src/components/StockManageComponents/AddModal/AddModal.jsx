@@ -76,6 +76,8 @@ export default function AddModal({ open, onClose, onAddProduct }) {
               id="product-price"
               label="Precio"
               variant="standard"
+              type="number"
+
               value={precio}
               onChange={(e) => setPrecio(e.target.value)}
               sx={{ mb: 2, width: '100%' }}
@@ -84,6 +86,7 @@ export default function AddModal({ open, onClose, onAddProduct }) {
               id="product-stock"
               label="Stock"
               variant="standard"
+              type="number"
               value={stock}
               onChange={(e) => setStock(e.target.value)}
               sx={{ mb: 2, width: '100%' }}
