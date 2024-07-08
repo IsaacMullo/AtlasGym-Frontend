@@ -23,28 +23,28 @@ const StockManageHeader = ({ onAddProduct }) => {
 
   return (
     <>
-      <div className="header">
-        <img className="logo" src="../src/assets/images/logo.jpg"/>
+      <div className="headerSM">
+        <img className="logoSM" src="../src/assets/images/logo.jpg"/>
         <div>
-          <div className="breadcrumb">
-          <Button onClick={goTo("/stock")}>
-            <CustomTypography variant="body2">ControlStock</CustomTypography>         
-          </Button>
+          <div className="breadcrumbSM">
+            <Button onClick={goTo("/stock")}>
+              <CustomTypography variant="body2">ControlStock</CustomTypography>         
+            </Button>
 
-          <Button onClick={goTo("/sales")}>
-            <CustomTypography variant="body2" className="ventas">Ventas</CustomTypography>
-          </Button>
+            <Button onClick={goTo("/sales")}>
+              <CustomTypography variant="body2" className="ventas">Ventas</CustomTypography>
+            </Button>
 
-          <Button onClick={goTo("/history")}>
-            <CustomTypography variant="body2">Historial de Ventas</CustomTypography>
-          </Button>
+            <Button onClick={goTo("/history")}>
+              <CustomTypography variant="body2">Historial de Ventas</CustomTypography>
+            </Button>
           </div>
-          <div className="titles">
-            <CustomTypography variant="h5">Gym</CustomTypography>
+          <div className="titlesSM">
+            <CustomTypography variant="h5" className="atlasH5SM">Atlas Gym</CustomTypography>
             <CustomTypography variant="subtitle1">Sistema de control de stock</CustomTypography>
           </div>
         </div>
-          <CustomButton onClick={handleOpenModal} className="add-button">Agregar Producto</CustomButton>
+          <CustomButton onClick={handleOpenModal} className="add-buttonSM">Agregar Producto</CustomButton>
       </div>
       <AddModal open={modalOpen} onClose={handleCloseModal} onAddProduct={onAddProduct}/>
     </>

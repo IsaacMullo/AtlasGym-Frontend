@@ -10,9 +10,9 @@ const SalesHistoryHeader = () =>{
 
   return(
     <div className="header-sales-history">
-      <img className="logo" src="../src/assets/images/logo.jpg"/>
+      <img className="logoSH" src="../src/assets/images/logo.jpg"/>
       <div>
-        <div className="breadcrumb">
+        <div className="breadcrumbSH">
           <Button onClick={goTo("/stock")}>
             <CustomTypography variant="body2">ControlStock</CustomTypography>         
           </Button>
@@ -25,8 +25,8 @@ const SalesHistoryHeader = () =>{
             <Typography variant="body2">Historial de Ventas</Typography>
           </Button>
         </div>
-        <div className="titles">
-          <CustomTypography variant="h5">Gym</CustomTypography>
+        <div className="titlesSH">
+          <CustomTypography variant="h5" className="atlasH5SH">Atlas Gym</CustomTypography>
           <CustomTypography variant="subtitle1">Sistema de control de stock</CustomTypography>
         </div>
       </div>
