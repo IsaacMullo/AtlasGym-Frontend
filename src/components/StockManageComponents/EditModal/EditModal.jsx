@@ -32,6 +32,7 @@ export default function EditModal({ open, onClose, onEditProduct, editingProduct
     if (open && editingProduct) {
       setProduct(editingProduct.nombre_producto);
       setPrice(editingProduct.precio)
+      setStock(editingProduct.stock);
     }
   }, [open, editingProduct]);
 

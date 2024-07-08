@@ -1,46 +1,50 @@
-.header-sales-history{
+.headerS{
   display: flex;
   margin-bottom: 50px;
 }
 
-.logoSH{
+.logoS{
   width: 200px;
   height: 200px;
   border-radius: 100%;
   margin-right: 90px;
 }
 
-.breadcrumbSH{
+.breadcrumbS{
   display: flex;
   margin-right: 40px;
   margin-bottom: 80px;
 }
 
-.breadcrumbSH .ventas{
-  margin-left: 40px;
-  margin-right: 40px;
+.breadcrumbS .ventas{
+  margin-left: 20px;
+  margin-right: 20px;
 }
 
-.headerSH button{
+.headerS button{
   margin-right: 20px;
   color: black;
 }
 
 
-.titlesSH{
+.titlesS{
   display: flex;
   margin-top: 100px;
 }
 
-.titlesSH .atlasH5SH{
+.titlesS .atlasH5S{
   margin-top: -3px;
   margin-left: 10px;
   margin-right: 20px;
 }
 
-
-.header-sales-history button{
+.headerS .sale-button{
+  height: 50px;
+  width: 180px;
+  border-radius: 30px;
   color: black;
- }
-
-
+  font-size: 13px;
+  font-weight: bold;
+  background-color: #F0EEEE;
+  margin-top: 15px;
+}

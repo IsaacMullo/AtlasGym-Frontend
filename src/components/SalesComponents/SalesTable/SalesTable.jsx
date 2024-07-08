@@ -101,7 +101,7 @@ const SalesTable = ({products}) => {
             {products.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, index) => (
               <TableRow key={index}>
                 <TableCell sx={{paddingLeft: '6%'}} component="th" scope="row">{convertUTCDateToLocalDate(row.fecha)}</TableCell>
-                <TableCell align="center">{row.id_producto}</TableCell>
+                <TableCell align="center">{row.nombre_producto}</TableCell>
                 <TableCell align="center">{row.cantidad}</TableCell>
                 <TableCell align="center">{row.responsable}</TableCell>
               </TableRow>

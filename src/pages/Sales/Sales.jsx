@@ -3,6 +3,7 @@ import SaleModal from "../../components/SalesComponents/SaleModal/SaleModal";
 import SalesHeader from "../../components/SalesComponents/SalesHeader/SalesHeader"
 import SalesTable from "../../components/SalesComponents/SalesTable/SalesTable"
 import { useState, useEffect } from "react";
+import "../../styles/sales.css"
 
 const Sales = () => {
   const [products, setProducts] = useState([]);

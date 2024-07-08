@@ -1,30 +1,32 @@
-.header{
+.headerSM{
   display: flex;
+  margin-bottom: 50px;
 }
 
-.logo{
+.logoSM{
   width: 200px;
   height: 200px;
   border-radius: 100%;
-  margin-right: 20px;
+  margin-right: 90px;
 }
 
-.breadcrumb{
+.breadcrumbSM{
   display: flex;
+  margin-right: 40px;
+  margin-bottom: 80px;
+}
+
+.breadcrumbSM .ventas{
+  margin-left: 20px;
   margin-right: 20px;
-  margin-bottom: 60px;
 }
 
-.breadcrumb .ventas{
-  margin-left: 10px;
-  margin-right: 10px;
-}
-
-.header button{
+.headerSM button{
+  margin-right: 20px;
   color: black;
 }
 
-.header .add-button{
+.headerSM .add-buttonSM{
   height: 50px;
   width: 180px;
   border-radius: 30px;
@@ -32,5 +34,17 @@
   font-size: 13px;
   font-weight: bold;
   background-color: #F0EEEE;
+  margin-top: 15px;
+}
+
+.titlesSM{
+  display: flex;
+  margin-top: 100px;
+}
+
+.titlesSM .atlasH5SM{
+  margin-top: -3px;
+  margin-left: 10px;
+  margin-right: 20px;
 }
 

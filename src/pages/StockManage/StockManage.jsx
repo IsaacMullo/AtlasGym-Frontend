@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import '../../styles/stock-manage.css';
 import StockManageTable from "../../components/StockManageComponents/StockManageTable/StockManageTable";
 

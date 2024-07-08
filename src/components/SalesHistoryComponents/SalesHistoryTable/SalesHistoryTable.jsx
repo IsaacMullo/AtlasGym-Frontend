@@ -117,7 +117,7 @@ const SalesHistoryTable = () => {
               <TableRow key={index}>
                 <TableCell align="center">{row.id_venta}</TableCell>
                 <TableCell sx={{paddingLeft: '6%'}} component="th" scope="row">{convertUTCDateToLocalDate(row.fecha)}</TableCell>
-                <TableCell align="center">{(row.id_producto)}</TableCell>
+                <TableCell align="center">{(row.nombre_producto)}</TableCell>
                 <TableCell align="center">{row.cantidad}</TableCell>
                 <TableCell align="center">{row.responsable}</TableCell>
                 <TableCell align="center">{"$" + row.precio}</TableCell>

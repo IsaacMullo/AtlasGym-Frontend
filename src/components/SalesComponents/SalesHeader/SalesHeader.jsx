@@ -12,10 +12,10 @@ const SalesHeader = ({ onOpenModal }) => {
 
   return (
     <>
-      <div className="header">
-        <img className="logo" src="../src/assets/images/logo.jpg"/>
+      <div className="headerS">
+        <img className="logoS" src="../src/assets/images/logo.jpg"/>
         <div>
-          <div className="breadcrumb">
+          <div className="breadcrumbS">
           <Button onClick={goTo("/stock")}>
             <CustomTypography variant="body2">ControlStock</CustomTypography>         
           </Button>
@@ -28,12 +28,12 @@ const SalesHeader = ({ onOpenModal }) => {
             <CustomTypography variant="body2">Historial de Ventas</CustomTypography>
           </Button>
           </div>
-          <div className="titles">
-            <CustomTypography variant="h5">Gym</CustomTypography>
+          <div className="titlesS">
+            <CustomTypography variant="h5" className="atlasH5S">Atlas Gym</CustomTypography>
             <CustomTypography variant="subtitle1">Sistema de control de stock</CustomTypography>
           </div>
         </div>
-          <CustomButton onClick={onOpenModal} className="add-button">Realizar venta</CustomButton>
+          <CustomButton onClick={onOpenModal} className="sale-button">Realizar venta</CustomButton>
       </div>
     </>
   )

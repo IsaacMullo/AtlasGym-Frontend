@@ -33,6 +33,7 @@ const SaleModal = ({open, onClose, onAddProduct}) =>{
   const [productoSeleccionado, setProductoSeleccionado] = useState('');
   const [cantidad, setCantidad] = useState('');
   const [responsable, setResponsable] = useState('');
+  const [nombreProducto, setNombreProducto] = useState('');
 
   const handleChange = (event) => {
     setProductoSeleccionado(event.target.value);
@@ -44,6 +45,7 @@ const SaleModal = ({open, onClose, onAddProduct}) =>{
     if (productoDetalles) {
       try {
         const totalV = productoDetalles.precio * parseInt(cantidad);
+        
         const ventaResponse = await axios.post('http://localhost:8000/api/historial-ventas/', {    
           id_producto: productoSeleccionado,
           cantidad,
@@ -65,6 +67,7 @@ const SaleModal = ({open, onClose, onAddProduct}) =>{
           setProductoSeleccionado('');
           setCantidad('');
           setResponsable('');
+          setNombreProducto('');
           onClose();
         }
       } catch (error) {
