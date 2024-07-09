@@ -1,8 +1,6 @@
 import * as React from 'react';
 import { useState } from 'react';
 import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -10,29 +8,25 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useAuth } from '../../contexts/AuthContext/AuthContext';
-import UseNavigation from '../../hooks/UseNavigate/UseNavigate';
 import { useNavigate } from 'react-router-dom';
+import LoginForm from '../../components/LoginComponents/LoginForm/LoginForm';
 
 const defaultTheme = createTheme();
-
 
 const Login = () => {
   const [usuario, setUsuario] = useState('');
   const [clave, setClave] = useState('');
   const { login } = useAuth(); 
-  const goTo = useNavigate();
+  const navigate = useNavigate();
 
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+  const handleSubmit = async (usuario, clave) => {
     const success = await login({ nombre_usuario: usuario, clave: clave });
     if (success) {
-        goTo("/sales");  // Redirige a la ruta /stock si el login es exitoso
+        navigate("/sales"); 
     }
-};
+  };
 
-
-  return(
+  return (
     <ThemeProvider theme={defaultTheme}>
       <Grid container component="main" sx={{ height: '80vh', mt: 8 }}>
         <Grid
@@ -41,8 +35,7 @@ const Login = () => {
           sm={4}
           md={7}
           sx={{
-            backgroundImage:
-              'url("src/assets/images/logo.jpg")',
+            backgroundImage: 'url("src/assets/images/logo.jpg")',
             backgroundColor: (t) =>
               t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
             backgroundSize: 'cover',
@@ -65,44 +58,12 @@ const Login = () => {
             <Typography component="h1" variant="h5">
               Inicio de Sesion
             </Typography>
-            <Box component="form" noValidate sx={{ mt: 8 }}  onSubmit={handleSubmit}>
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                id="usuario"
-                label="Usuario"
-                name="usuario"
-                autoComplete="usuario"
-                autoFocus
-                value={usuario}
-                onChange={e => setUsuario(e.target.value)}
-              />
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                name="clave"
-                label="Contraseña"
-                type="clave"
-                id="clave"
-                autoComplete="clave"
-                value={clave}
-                onChange={e => setClave(e.target.value)}
-              />
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                sx={{ mt: 7, mb: 2 }}
-              >
-                Ingresar
-              </Button>
-            </Box>
+            <LoginForm usuario={usuario} setUsuario={setUsuario} clave={clave} setClave={setClave} onSubmit={handleSubmit} />
           </Box>
         </Grid>
       </Grid>
     </ThemeProvider>
-  )
-}
+  );
+};
+
 export default Login;

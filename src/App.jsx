@@ -4,7 +4,7 @@ import StockManage from './pages/StockManage/StockManage'
 import SalesHistory from './pages/SalesHistory/SalesHistory';
 import Sales from './pages/Sales/Sales';
 import Login from './pages/Login/Login';
-import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
+import ProtectedRoute from './routing/ProtectedRoute/ProtectedRoute';
 
 function App() {
 
