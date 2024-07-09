@@ -12,6 +12,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import { useAuth } from '../../../contexts/AuthContext/AuthContext';
 
 const style = {
   position: 'absolute',
@@ -32,8 +33,16 @@ const SaleModal = ({open, onClose, onAddProduct}) =>{
   const [producto, setProducto] = useState([]);
   const [productoSeleccionado, setProductoSeleccionado] = useState('');
   const [cantidad, setCantidad] = useState('');
-  const [responsable, setResponsable] = useState('');
   const [nombreProducto, setNombreProducto] = useState('');
+  const { user } = useAuth();
+  
+  const [responsable, setResponsable] = useState(user ? user.nombre_usuario : '');
+
+  useEffect(() => {
+    if (user) {
+      setResponsable(user.nombre_usuario);
+    }
+  }, [user]);
 
   const handleChange = (event) => {
     setProductoSeleccionado(event.target.value);
@@ -76,7 +85,6 @@ const SaleModal = ({open, onClose, onAddProduct}) =>{
     };
   }
   
-
 
   const handleCancel = () => {
     setProductoSeleccionado('')
@@ -150,6 +158,7 @@ const SaleModal = ({open, onClose, onAddProduct}) =>{
               id="responsible"
               label="Responsable"
               variant="standard"
+              disabled
               value={responsable}
               onChange={(e) => setResponsable(e.target.value)}
               sx={{ mb: 2, width: '100%' }}
