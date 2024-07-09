@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Typography } from "@mui/material";
 import CustomTypography from "../../../common/CustomTypography/CustomTypography";
-import UseNavigation from "../../../hooks/UseNavigate/UseNavigate";
+import UseNavigation from "../../../hooks/UseNavigation/UseNavigation";
 
 
 

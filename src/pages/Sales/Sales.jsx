@@ -23,7 +23,7 @@ const Sales = () => {
   };
 
   const addProductToHistory = (newProduct) => {
-    setProducts(prevProducts => [...prevProducts, newProduct]);
+    setProducts(prevProducts => [newProduct, ...prevProducts]);
   };
 
   return(

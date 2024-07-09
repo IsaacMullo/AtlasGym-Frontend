@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import CustomTypography from "../../../common/CustomTypography/CustomTypography";
 import CustomButton from "../../../common/CustomButton/CustomButton";
 import { Button } from "@mui/material";
-import UseNavigation from "../../../hooks/UseNavigate/UseNavigate";
+import UseNavigation from "../../../hooks/UseNavigation/UseNavigation";
 import { useAuth } from "../../../contexts/AuthContext/AuthContext";
 
 
