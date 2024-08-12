@@ -1,0 +1,46 @@
+.header-sales-history{
+  display: flex;
+  margin-bottom: 50px;
+}
+
+.logoSH{
+  width: 200px;
+  height: 200px;
+  border-radius: 100%;
+  margin-right: 90px;
+}
+
+.breadcrumbSH{
+  display: flex;
+  margin-right: 40px;
+  margin-bottom: 80px;
+}
+
+.breadcrumbSH .ventas{
+  margin-left: 40px;
+  margin-right: 40px;
+}
+
+.headerSH button{
+  margin-right: 20px;
+  color: black;
+}
+
+
+.titlesSH{
+  display: flex;
+  margin-top: 100px;
+}
+
+.titlesSH .atlasH5SH{
+  margin-top: -3px;
+  margin-left: 10px;
+  margin-right: 20px;
+}
+
+
+.header-sales-history button{
+  color: black;
+ }
+
+

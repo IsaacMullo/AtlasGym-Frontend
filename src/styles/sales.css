@@ -1,0 +1,50 @@
+.headerS{
+  display: flex;
+  margin-bottom: 50px;
+}
+
+.logoS{
+  width: 200px;
+  height: 200px;
+  border-radius: 100%;
+  margin-right: 90px;
+}
+
+.breadcrumbS{
+  display: flex;
+  margin-right: 40px;
+  margin-bottom: 80px;
+}
+
+.breadcrumbS .ventas{
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.headerS button{
+  margin-right: 20px;
+  color: black;
+}
+
+
+.titlesS{
+  display: flex;
+  margin-top: 100px;
+}
+
+.titlesS .atlasH5S{
+  margin-top: -3px;
+  margin-left: 10px;
+  margin-right: 20px;
+}
+
+.headerS .sale-button{
+  height: 50px;
+  width: 180px;
+  border-radius: 30px;
+  color: black;
+  font-size: 13px;
+  font-weight: bold;
+  background-color: #F0EEEE;
+  margin-top: 15px;
+}

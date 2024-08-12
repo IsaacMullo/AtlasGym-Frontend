@@ -1,0 +1,50 @@
+.headerSM{
+  display: flex;
+  margin-bottom: 50px;
+}
+
+.logoSM{
+  width: 200px;
+  height: 200px;
+  border-radius: 100%;
+  margin-right: 90px;
+}
+
+.breadcrumbSM{
+  display: flex;
+  margin-right: 40px;
+  margin-bottom: 80px;
+}
+
+.breadcrumbSM .ventas{
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.headerSM button{
+  margin-right: 20px;
+  color: black;
+}
+
+.headerSM .add-buttonSM{
+  height: 50px;
+  width: 180px;
+  border-radius: 30px;
+  color: black;
+  font-size: 13px;
+  font-weight: bold;
+  background-color: #F0EEEE;
+  margin-top: 15px;
+}
+
+.titlesSM{
+  display: flex;
+  margin-top: 100px;
+}
+
+.titlesSM .atlasH5SM{
+  margin-top: -3px;
+  margin-left: 10px;
+  margin-right: 20px;
+}
+
