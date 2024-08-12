@@ -52,38 +52,49 @@ const SaleModal = ({open, onClose, onAddProduct}) =>{
     const productoDetalles = producto.find(p => p.id_producto === productoSeleccionado);
   
     if (productoDetalles) {
-      try {
-        const totalV = productoDetalles.precio * parseInt(cantidad);
-        
-        const ventaResponse = await axios.post('http://localhost:8000/api/historial-ventas/', {    
-          id_producto: productoSeleccionado,
-          cantidad,
-          responsable,
-          precio: totalV,
-        });
+      const totalV = productoDetalles.precio * parseInt(cantidad);
   
-        if (ventaResponse.status === 201) {
-          const nuevoStock = productoDetalles.stock - parseInt(cantidad);
-          await axios.put(`http://localhost:8000/api/productos/${productoSeleccionado}/`, {
-            ...productoDetalles,
-            stock: nuevoStock
+      if (productoDetalles.stock >= cantidad) {
+        try {
+          const ventaResponse = await axios.post('https://atlasgym-backend-production.up.railway.app/api/historial-ventas/', {
+            id_producto: productoSeleccionado,
+            cantidad,
+            responsable,
+            precio: totalV,
           });
   
-          onAddProduct({
-            ...ventaResponse.data,
-          });
+          if (ventaResponse.status === 201) {
+            const nuevoStock = productoDetalles.stock - parseInt(cantidad);
+            await axios.put(`https://atlasgym-backend-production.up.railway.app/api/productos/${productoSeleccionado}/`, {
+              ...productoDetalles,
+              stock: nuevoStock
+            });
   
-          setProductoSeleccionado('');
-          setCantidad('');
-          setResponsable('');
-          setNombreProducto('');
-          onClose();
+            onAddProduct({
+              ...ventaResponse.data,
+            });
+            
+            if (user && user.id_usuario) {
+              await registrarUsuarioVenta(user.id_usuario, ventaResponse.data.id_venta);
+            }
+
+            setProductoSeleccionado('');
+            setCantidad('');
+            setResponsable('');
+            setNombreProducto('');
+            onClose();
+          }
+        } catch (error) {
+          console.error('Error realizando la venta o actualizando el stock:', error);
         }
-      } catch (error) {
-        console.error('Error realizando la venta o actualizando el stock:', error);
+      } else {
+        alert(`No hay suficiente stock. Stock disponible: ${productoDetalles.stock}`);
       }
-    };
-  }
+    } else {
+      alert("Producto no encontrado.");
+    }
+  };
+  
   
 
   const handleCancel = () => {
@@ -96,7 +107,7 @@ const SaleModal = ({open, onClose, onAddProduct}) =>{
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/api/productos/');
+        const response = await axios.get('https://atlasgym-backend-production.up.railway.app/api/productos/');
         setProducto(response.data);
       } catch (error) {
         console.error('Error fetching products:', error);
@@ -106,9 +117,7 @@ const SaleModal = ({open, onClose, onAddProduct}) =>{
     fetchProducts();
   }, []);
 
-  const logTest =(id) =>{
-    console.log(id)
-  }
+
 
   return(
     <div>
@@ -150,8 +159,16 @@ const SaleModal = ({open, onClose, onAddProduct}) =>{
               id="quantity"
               label="Cantidad"
               variant="standard"
+              type="text"
               value={cantidad}
-              onChange={(e) => setCantidad(e.target.value)}
+              onChange={(e) => {
+                let value = e.target.value;
+                if (value.length > 1) {
+                  value = parseInt(value, 10).toString();
+                }
+                setCantidad(value.replace(/[^0-9]/g, ''));
+              }}
+              InputProps={{ inputProps: { min: 0 } }}
               sx={{ mb: 2, width: '100%' }}
             />
             <TextField
@@ -173,5 +190,17 @@ const SaleModal = ({open, onClose, onAddProduct}) =>{
       </div>
 )
 }
+
+const registrarUsuarioVenta = async (id_usuario, id_ventas) => {
+  try {
+    await axios.post('https://atlasgym-backend-production.up.railway.app/api/usuario-ventas/', {
+      id_usuario,
+      id_ventas
+    });
+    console.log('Relación usuario-venta registrada correctamente');
+  } catch (error) {
+    console.error('Error al registrar la relación usuario-venta:', error);
+  }
+};
 
 export default SaleModal;

@@ -68,7 +68,7 @@ const SalesHistoryTable = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/api/historial-ventas/');
+        const response = await axios.get('https://atlasgym-backend-production.up.railway.app/api/historial-ventas/');
         setProducts(response.data);
       } catch (error) {
         console.error('Error fetching products:', error);
@@ -88,9 +88,6 @@ const SalesHistoryTable = () => {
     setPage(0);
   };
 
-  const logTest =(id) =>{
-    console.log(id)
-  }
 
   const labelDisplayedRows = ({ from, to, count }) => {
     return `${from}-${to} de ${count !== -1 ? count : `más de ${to}`}`;

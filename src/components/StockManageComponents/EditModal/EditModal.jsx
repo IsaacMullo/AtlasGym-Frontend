@@ -87,18 +87,39 @@ export default function EditModal({ open, onClose, onEditProduct, editingProduct
               id="product-price"
               label="Precio"
               variant="standard"
-              type="number"
+              type="text"
               value={price}
-              onChange={(e) => setPrice(e.target.value)}
+              onChange={(e) => {
+                const value = e.target.value;
+                const isValidInput = value === "" || (/^\d*\.?\d*$/.test(value));
+                if (isValidInput) {
+                  setPrice(value.replace(/^0+/, '0')
+                                         .replace(/\.+/, '.')
+                                         .replace(/(^\.)|(\..*\.)|^0(\d+)/g, '$2$3'));
+                }
+              }}
+              onBlur={() => {
+                if (price && !isNaN(price)) {
+                  setPrice(parseFloat(price).toFixed(2));
+                }
+              }}
+              InputProps={{ inputProps: { min: 0 } }}
               sx={{ mb: 2, width: '100%' }}
             />
             <TextField
               id="product-stock"
               label="Stock"
               variant="standard"
-              type="number"
+              type="text"
               value={stock}
-              onChange={(e) => setStock(e.target.value)}
+              onChange={(e) => {
+                let value = e.target.value;
+                if (value.length > 1) {
+                  value = parseInt(value, 10).toString();
+                }
+                setStock(value.replace(/[^0-9]/g, ''));
+              }}
+              InputProps={{ inputProps: { min: 0 } }}
               sx={{ mb: 2, width: '100%' }}
             />
             <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>

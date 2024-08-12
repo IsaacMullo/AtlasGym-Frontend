@@ -8,7 +8,7 @@ export const AuthProvider = ({ children }) => {
 
     const login = async (credentials) => {
         setLoginError(false);
-        const response = await fetch('http://localhost:8000/api/login/', {
+        const response = await fetch('https://atlasgym-backend-production.up.railway.app/api/login/', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(credentials)

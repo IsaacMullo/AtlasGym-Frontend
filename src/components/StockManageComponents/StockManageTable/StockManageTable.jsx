@@ -98,7 +98,7 @@ export default function StockManageTable() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/api/productos/');
+        const response = await axios.get('https://atlasgym-backend-production.up.railway.app/api/productos/');
         setProducts(response.data);
       } catch (error) {
         console.error('Error fetching products:', error);
@@ -110,7 +110,7 @@ export default function StockManageTable() {
 
   const onAddProduct = async (newProduct) => {
     try {
-      const response = await axios.post('http://localhost:8000/api/productos/', newProduct);
+      const response = await axios.post('https://atlasgym-backend-production.up.railway.app/api/productos/', newProduct);
       setProducts(prevProducts => [...prevProducts, response.data]);
     } catch (error) {
       console.error('Error adding product:', error);
@@ -119,7 +119,7 @@ export default function StockManageTable() {
 
   const onEditProduct = async (producto) => {
     try {
-      const response = await axios.put(`http://localhost:8000/api/productos/${producto.id_producto}/`, producto);
+      const response = await axios.put(`https://atlasgym-backend-production.up.railway.app/api/productos/${producto.id_producto}/`, producto);
       setProducts(products.map(product => 
         product.id_producto === producto.id_producto ? response.data : product
       ));
@@ -132,8 +132,8 @@ export default function StockManageTable() {
 
   const onDeleteProduct = async (id_producto) => {
     try {
-      await axios.delete(`http://localhost:8000/api/productos/${id_producto}/`);
-      setProducts(products.filter(product => product.id_producto !== id_producto)); // Actualizar el estado filtrando el producto eliminado
+      await axios.delete(`https://atlasgym-backend-production.up.railway.app/api/productos/${id_producto}/`);
+      setProducts(products.filter(product => product.id_producto !== id_producto));
     } catch (error) {
       console.error('Error deleting product:', error);
     }
@@ -149,9 +149,6 @@ export default function StockManageTable() {
     setPage(0);
   };
 
-  const logTest =(pos) =>{
-    return pos + 1
-  }
 
   const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - products.length) : 0;
 
