@@ -4,6 +4,7 @@ import CustomButton from "../../../common/CustomButton/CustomButton";
 import { Button } from "@mui/material";
 import UseNavigation from "../../../hooks/UseNavigation/UseNavigation";
 import { useAuth } from "../../../contexts/AuthContext/AuthContext";
+import logo from "../../../assets/images/logo.jpg";
 
 
 const SalesHeader = ({ onOpenModal }) => {
@@ -14,7 +15,7 @@ const SalesHeader = ({ onOpenModal }) => {
   return (
     <>
       <div className="headerS">
-        <img className="logoS" src="../src/assets/images/logo.jpg"/>
+        <img className="logoS" src={logo}/>
         <div>
         <div className="breadcrumbSM">
           {user && user.rol === 'admin' && (
