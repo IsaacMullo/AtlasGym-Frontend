@@ -5,6 +5,7 @@ import CustomButton from "../../../common/CustomButton/CustomButton";
 import { Button } from "@mui/material";
 import UseNavigation from "../../../hooks/UseNavigation/UseNavigation";
 import { useAuth } from "../../../contexts/AuthContext/AuthContext";
+import logo from "../../../assets/images/logo.jpg";
 
 
 const StockManageHeader = ({ onAddProduct }) => {
@@ -26,7 +27,7 @@ const StockManageHeader = ({ onAddProduct }) => {
   return (
     <>
       <div className="headerSM">
-        <img className="logoSM" src="../src/assets/images/logo.jpg"/>
+        <img className="logoSM" src={logo}/>
         <div>
           <div className="breadcrumbSM">
             {user && user.rol === 'admin' && (

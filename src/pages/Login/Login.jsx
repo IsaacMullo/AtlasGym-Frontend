@@ -10,6 +10,9 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useAuth } from '../../contexts/AuthContext/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import LoginForm from '../../components/LoginComponents/LoginForm/LoginForm';
+import logo from "../../assets/images/logo.jpg";
+
+
 
 const defaultTheme = createTheme();
 
@@ -35,7 +38,7 @@ const Login = () => {
           sm={4}
           md={7}
           sx={{
-            backgroundImage: 'url("src/assets/images/logo.jpg")',
+            backgroundImage: `url(${logo})`,
             backgroundColor: (t) =>
               t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
             backgroundSize: 'cover',

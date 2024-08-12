@@ -2,6 +2,7 @@ import React from 'react';
 import { Button, Typography } from "@mui/material";
 import CustomTypography from "../../../common/CustomTypography/CustomTypography";
 import UseNavigation from "../../../hooks/UseNavigation/UseNavigation";
+import logo from "../../../assets/images/logo.jpg";
 
 
 
@@ -10,7 +11,7 @@ const SalesHistoryHeader = () =>{
 
   return(
     <div className="header-sales-history">
-      <img className="logoSH" src="../src/assets/images/logo.jpg"/>
+      <img className="logoSH" src={logo}/>
       <div>
         <div className="breadcrumbSH">
           <Button onClick={goTo("/stock")}>
